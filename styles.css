@@ -16,7 +16,12 @@ body {
     align-items: center;
 }
 
+button{
+    width: 70px;
+}
+
 .buttons {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
