@@ -10,10 +10,15 @@ body {
     width: 300px;
     padding: 20px;
     background: black;
-    border-radius: 12px;
+    border-radius: 9px;
     display:flex;
     flex-direction: column;
     align-items: center;
+}
+
+#display{
+    background-color:greenyellow;
+    
 }
 
 button{
@@ -24,4 +29,8 @@ button{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+.clear{
+    flex: 1 0 0;
 }
