@@ -3,7 +3,6 @@ console.log("Connected")
 let display = document.getElementById('display');
 let currentInput = '';
 let firstOperand = null;
-let seconOperand = null;
 let operator = null;
 let shouldResetScreen = false;
 
@@ -30,7 +29,7 @@ numberButtons.forEach( button => {
     })
 })
 
-//clear display
+//clear display function
 
 const clearButton = document.querySelector('.btn.clear');
 clearButton.addEventListener('click',clear);
