@@ -29,6 +29,18 @@ numberButtons.forEach( button => {
     })
 })
 
+//onclick for every operator
+const operatorButtons = document.querySelectorAll('.btn.operator');
+
+operatorButtons.forEach( button =>{
+    button.addEventListener('click', () =>{
+        const value = button.textContent;
+        handleOperator(value);
+    })
+})
+
+
+
 //clear display function
 
 const clearButton = document.querySelector('.btn.clear');
