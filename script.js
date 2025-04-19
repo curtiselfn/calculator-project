@@ -51,6 +51,7 @@ numberButtons.forEach( button => {
         } else {
             currentInput += value;
         }
+        console.log("Clicked:", button.textContent);
 
         updateDisplay();
         
@@ -71,30 +72,40 @@ function handleDecimal(){
 operatorButtons.forEach( button =>{
     button.addEventListener('click', () =>{
         const value = button.textContent;
+        console.log("Clicked:", button.textContent);
         handleOperator(value);
     })
 })
 
 //handling operator +-/*
-function handleOperator(value){
-    if (operator !== null && shouldResetScreen === false) evaluate();
+function handleOperator(operat){
+    if (operator !== null && !shouldResetScreen) evaluate();
     firstOperand = currentInput;
-    operator = value;
+    operator = operat;
     shouldResetScreen = true;
+    console.log(`first operand : ${firstOperand}`);
+    console.log(`Operator selected :${operator}`)
 }
 
 //evaluating
-equalButton.addEventListener('click', evaluate)
+equalButton.addEventListener('click', () => {
+    console.log("Equal button clicked");
+    evaluate();
+});
 
-function evaluate(){
+function evaluate() {
     if (operator === null || shouldResetScreen === true) return;
     const secondOperand = currentInput;
+    console.log(`Evaluating: ${firstOperand} ${operator} ${secondOperand}`);
+
     const result = operate(operator, firstOperand, secondOperand);
+    console.log(`Result: ${result}`);
+
     currentInput = result;
     operator = null;
     firstOperand = null;
     shouldResetScreen = true;
-    updateDisplay()
+    updateDisplay();
 }
 
 //operate
