@@ -18,11 +18,14 @@ body {
 
 #display{
     background-color:greenyellow;
-    
+    flex-grow: 1;
+    width: 300px;
+    text-align: right;
 }
 
 button{
     width: 70px;
+    flex-grow: 1;
 }
 
 .buttons {

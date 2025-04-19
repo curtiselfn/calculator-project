@@ -7,16 +7,38 @@ let seconOperand = null;
 let operator = null;
 let shouldResetScreen = false;
 
+//update the display with current input
+function updateDisplay() {
+    display.textContent = currentInput || "0";
+}
+
+//adding onclick to every number button
 const numberButtons = document.querySelectorAll('.btn.number');
 
-numberButtons.forEach(button=>{
+numberButtons.forEach( button => {
     button.addEventListener('click', () =>{
         const value = button.textContent;
         //Update the display value;
-        if(display.textContent === "0"){
-            display.textContent = value; // will display the value
+        if(display.textContent === "0" || shouldResetScreen){
+            currentInput = value; // will display the value
         } else {
-            display.textContent += value;
+            currentInput += value;
         }
+
+        updateDisplay();
+        
     })
 })
+
+//clear display
+
+const clearButton = document.querySelector('.btn.clear');
+clearButton.addEventListener('click',clear);
+
+function clear(){
+    currentInput = '';
+    firstOperand = null;
+    operator = null;
+    shouldResetScreen = false;
+    updateDisplay()
+}
