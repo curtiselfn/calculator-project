@@ -28,6 +28,49 @@ function updateDisplay() {
     display.textContent = currentInput || "0";
 }
 
+// Handle keyboard input
+document.addEventListener('keydown', handleKeyboardInput);
+
+function handleKeyboardInput(event) {
+    const key = event.key; // Get the key that was pressed
+
+    // Handle number buttons (0-9)
+    if (key >= '0' && key <= '9') {
+        // Update the current input value based on the key pressed
+        if (display.textContent === "0" || shouldResetScreen) {
+            currentInput = key; // Replace the display with the pressed number
+            shouldResetScreen = false;
+        } else {
+            currentInput += key; // Append the pressed number
+        }
+        updateDisplay();
+    }
+
+    // Handle operator buttons (+, -, *, /)
+    if (key === '+' || key === '-' || key === '*' || key === '/') {
+        handleOperator(key);
+    }
+
+    // Handle decimal point (.)
+    if (key === '.') {
+        handleDecimal();
+    }
+
+    // Handle the "Enter" key for "=" (equals)
+    if (key === 'Enter' || key === '=') {
+        evaluate();
+    }
+
+    // Handle "Escape" key for "clear"
+    if (key === 'Escape') {
+        clear();
+    }
+
+    // Prevent the default action for keypress (optional)
+    event.preventDefault();
+}
+
+
 //clear display function
 
 clearButton.addEventListener('click',clear);
@@ -48,6 +91,7 @@ numberButtons.forEach( button => {
         //Update the display value;
         if(display.textContent === "0" || shouldResetScreen){
             currentInput = value; // will display the value
+            shouldResetScreen = false;
         } else {
             currentInput += value;
         }
@@ -63,6 +107,7 @@ decimalButton.addEventListener('click', handleDecimal);
 
 function handleDecimal(){
     if (currentInput.includes('.')) return;
+    if (currentInput === '') currentInput = "0"
     currentInput += ".";
     updateDisplay();
 }
@@ -78,10 +123,10 @@ operatorButtons.forEach( button =>{
 })
 
 //handling operator +-/*
-function handleOperator(operat){
+function handleOperator(value){
     if (operator !== null && !shouldResetScreen) evaluate();
     firstOperand = currentInput;
-    operator = operat;
+    operator = value;
     shouldResetScreen = true;
     console.log(`first operand : ${firstOperand}`);
     console.log(`Operator selected :${operator}`)
@@ -99,9 +144,10 @@ function evaluate() {
     console.log(`Evaluating: ${firstOperand} ${operator} ${secondOperand}`);
 
     const result = operate(operator, firstOperand, secondOperand);
+    const roundedResult = Math.round(result * 100) / 100;
     console.log(`Result: ${result}`);
 
-    currentInput = result;
+    currentInput = roundedResult;
     operator = null;
     firstOperand = null;
     shouldResetScreen = true;
